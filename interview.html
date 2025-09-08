@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Interview – AI Interview Prep Bot</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container { max-width: 900px; width:100%; }
+    .card {
+      background: rgba(255,255,255,0.08);
+      padding: 26px;
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      margin-bottom: 20px;
+    }
+    .banner { text-align:center; margin-bottom:18px; }
+    .banner img { width:72px; margin-bottom:10px; animation: float 3s ease-in-out infinite; }
+    .banner h1 { font-size:1.6rem; margin-bottom:4px; color:#fff; }
+    /* Labels */
+label {
+  font-weight: 700;
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 0.95rem;
+  letter-spacing: 0.4px;
+  transition: color 0.3s ease;
+}
+label:hover {
+  color: #ffdeeb;
+}
+
+/* Inputs, Selects, Textareas */
+select, textarea, input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 500;
+  backdrop-filter: blur(12px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease;
+    }
+
+    /* Placeholder text */
+    select::placeholder,
+    textarea::placeholder,
+    input::placeholder {
+    color: rgba(255, 255, 255, 0.65);
+    font-style: italic;
+    }
+
+    /* Focus state */
+    select:focus, textarea:focus, input:focus {
+    border: 1px solid #ff7eb3;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 3px rgba(255, 126, 179, 0.35);
+    transform: translateY(-2px);
+    }
+
+    /* Dropdown options */
+    select option {
+    background: #333;
+    color: #fff;
+    padding: 10px;
+    }
+
+    /* Textarea resizing */
+    textarea {
+    resize: vertical;
+    min-height: 150px;
+    line-height: 1.5;
+    border-radius: 16px;
+    }
+
+    /* Smooth hover glow */
+    select:hover, textarea:hover, input:hover {
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 12px rgba(255, 126, 179, 0.25);
+    }
+
+
+    .controls { display:flex; gap:10px; margin-top:14px; flex-wrap:wrap; }
+    button {
+      padding:12px 18px; border:none; border-radius:999px; font-weight:700; cursor:pointer;
+      transition:transform .15s ease;
+    }
+    button:hover { transform:translateY(-3px); }
+    .start { background: linear-gradient(135deg,#ff7eb3,#ff758c); color:#fff; box-shadow:0 6px 18px rgba(255,118,150,0.35); }
+    .secondary { background: linear-gradient(135deg,#36d1dc,#5b86e5); color:#fff; box-shadow:0 6px 18px rgba(91,134,229,0.35); }
+    .danger { background: rgba(255,255,255,0.06); color:#fff; box-shadow: none; border:1px solid rgba(255,255,255,0.06); }
+    .hidden { display:none; }
+    #question { font-size:1.1rem; margin-bottom:12px; color:#fff; }
+    .progress-container { background: rgba(255,255,255,0.12); border-radius:50px; overflow:hidden; height:14px; margin:10px 0; }
+    .progress-bar { height:100%; width:0%; background: linear-gradient(135deg,#ff7eb3,#ff758c); transition:width .4s ease; }
+    .timer { font-weight:700; margin-bottom:10px; }
+    textarea#answer { min-height:140px; resize:vertical; font-size:1rem; padding:12px; }
+    #feedback { margin-top:12px; padding:12px; border-radius:10px; background: rgba(0,0,0,0.25); font-family: monospace; white-space:pre-wrap; color:#e8e8e8; }
+    #results pre { background: rgba(0,0,0,0.2); padding:12px; border-radius:8px; color:#fff; overflow:auto; }
+    .small { font-size:0.9rem; opacity:0.95; }
+    @keyframes float { 0%,100% { transform:translateY(0) } 50% { transform:translateY(-8px) } }
+    @media (max-width:600px) { .controls { flex-direction:column; } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="banner">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="bot" />
+      <h1>AI Interview Prep Bot</h1>
+      <p class="small">Role-based questions, real-time evaluation & feedback</p>
+    </div>
+
+    <!-- Setup -->
+    <div class="card" id="setup">
+      <h2>Start Your Interview</h2>
+       <style>
+    /* Style for the greeting label itself */
+    label#greeting {
+      font-weight: 700;
+  display: block;
+  margin-top: 14px;
+  margin-bottom: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+  letter-spacing: 0.4px;
+  transition: color 0.3s ease;
+
+  /* Add positioning for top-right */
+  position: fixed;
+  top: 15px;
+  right: 20px;
+  padding: 8px 14px;
+  border-radius: 6px;
+
+}
+
+label#greeting:hover {
+  color: #ffdeeb;
+}
+  </style>
+      <label class="greeting" id="greeting"></label>
+      <script>
+        window.onload = function() {
+            var name = localStorage.getItem("username"); // Get the name
+            if (name) {
+                document.getElementById("greeting").innerText = "Hi " + name;
+            }
+        }
+      </script>
+
+
+      <label for="role">Role <span class="warn" id="roleWarn"></span></label>
+        <select id="role">
+        <option value="">-- Select Role --</option>
+        <option>Software Developer</option>
+        <option>Product Manager</option>
+        <option>Data Analyst</option>
+        </select>
+
+        <label for="domain">Domain (optional)</label>
+        <select id="domain">
+        <option value="">-- Any --</option>
+        <option>Frontend</option>
+        <option>Backend</option>
+        <option>Machine Learning</option>
+        <option>System Design</option>
+        </select>
+
+
+      <label for="mode">Mode</label>
+      <select id="mode">
+        <option value="">-- Select --</option>
+        <option>Technical</option>
+        <option>Behavioral</option>
+      </select>
+
+      <label for="qcount">Number of questions (1–10)</label>
+      <input id="qcount" type="number" value="5" min="1" max="10" />
+
+      <div class="controls">
+        <button class="start" id="btnStart">🚀 Start Interview</button>
+        <button class="secondary" id="btnPractice">🔁 Practice Mode (no scoring)</button>
+      </div>
+      <p class="small" style="margin-top:10px;">Tip: answer concisely but include keywords and examples for higher score.</p>
+    </div>
+
+    <!-- Interview -->
+    <div class="card hidden" id="interview">
+      <div style="display:flex;justify-content:space-between;align-items:center;">
+        <h3 id="qnum">Question 1</h3>
+        <div class="timer" id="timer">Time left: 60s</div>
+      </div>
+
+      <div id="question">Question appears here</div>
+
+      <div class="progress-container" aria-hidden>
+        <div class="progress-bar" id="progress"></div>
+      </div>
+
+      <textarea id="answer" placeholder="Type your answer here..."></textarea>
+
+      <div style="display:flex;gap:10px;margin-top:12px;flex-wrap:wrap;">
+        <button class="start" id="btnSubmit">Submit</button>
+        <button class="secondary" id="btnSkip">Skip</button>
+        <button class="secondary" id="micBtn">🎤 Voice</button>
+        <button class="danger" id="btnQuit">Quit</button>
+      </div>
+
+
+      <div id="feedback" class="hidden"></div>
+    </div>
+
+    <!-- Summary -->
+    <div class="card hidden" id="summary">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+        <h2 style="margin:0;">Interview Finished ✅</h2>
+        <button id="btnDownloadPdf" class="secondary">📄 Download PDF</button>
+      </div>
+
+      <p class="small" id="finalScore">Your score: —</p>
+      <div id="results"><pre id="resultsPre"></pre></div>
+
+      <div style="display:flex; gap:10px; margin-top:14px;">
+        <button class="start" id="btnRestart">Restart</button>
+      </div>
+    </div>
+
+    <div class="card hidden" id="leaderboard">
+      <h2>🏆 Leaderboard</h2>
+      <ul id="leaderboardList"></ul>
+      <button class="secondary" id="btnBackHome">⬅ Back to Home</button>
+    </div>
+
+
+  </div>
+
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</body>
+</html>
