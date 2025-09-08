@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Interview Prep Bot</title>
+  <style>
+    /* Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+
+
+/* Inputs, Selects, Textareas */
+select, textarea, input {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  backdrop-filter: blur(12px);
+  
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.25s ease;
+    }
+
+    /* Placeholder text */
+    select::placeholder,
+    textarea::placeholder,
+    input::placeholder {
+    color: rgba(255, 255, 255, 0.65);
+    font-style: italic;
+    }
+
+    /* Focus state */
+    select:focus, textarea:focus, input:focus {
+    border: 1px solid #ff7eb3;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 0 0 3px rgba(255, 126, 179, 0.35);
+    transform: translateY(-2px);
+    }
+
+
+    .landing {
+      text-align: center;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .hero {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 20px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .hero:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .hero img {
+      width: 120px;
+      margin-bottom: 20px;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .hero h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin-bottom: 25px;
+      opacity: 0.9;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      font-size: 1rem;
+      font-weight: bold;
+      color: #fff;
+      background: linear-gradient(135deg, #ff7eb3, #ff758c);
+      border-radius: 50px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 6px 20px rgba(255, 118, 150, 0.5);
+      margin-top: 20px;
+    }
+
+    .btn:hover {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      transform: scale(1.05);
+      box-shadow: 0 8px 28px rgba(255, 118, 150, 0.7);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+  </style>
+</head>
+<body>
+  <div class="landing">
+    <div class="hero">
+      <img src="https://cdn-icons-png.flaticon.com/512/4712/4712109.png" alt="AI Bot">
+      <h1>AI Interview Prep Bot</h1>
+      <p>Sharpen your skills with realistic mock interviews 🚀</p>
+      <input id="username" type="text" placeholder="Enter your name" />
+      <a href="interview.html" class="btn" onclick="saveName()">Start Now</a>
+
+      <script>
+        function saveName() {
+            var name = document.getElementById("username").value;
+            // Save the name so it can be used on the next page
+            localStorage.setItem("username", name);
+        }
+      </script>
+    </div>
+  </div>
+  
+</body>
+<script src="script.js"></script>
+</html>
